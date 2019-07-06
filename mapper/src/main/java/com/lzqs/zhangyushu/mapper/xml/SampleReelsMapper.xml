@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lzqs.zhangyushu.dao.SampleReelsMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.lzqs.zhangyushu.entity.SampleReels">
+        <id column="sample_reels_id" property="sampleReelsId" />
+        <result column="user_id" property="userId" />
+        <result column="user_name" property="userName" />
+        <result column="sample_reels_name" property="sampleReelsName" />
+        <result column="sample_reels_cover" property="sampleReelsCover" />
+        <result column="samole_reels_desc" property="samoleReelsDesc" />
+        <result column="create_time" property="createTime" />
+        <result column="status" property="status" />
+        <result column="like_num" property="likeNum" />
+        <result column="comment_num" property="commentNum" />
+        <result column="view_num" property="viewNum" />
+    </resultMap>
+
+</mapper>

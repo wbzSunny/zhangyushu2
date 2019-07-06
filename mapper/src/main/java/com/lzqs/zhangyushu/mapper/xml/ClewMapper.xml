@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lzqs.zhangyushu.dao.ClewMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.lzqs.zhangyushu.entity.Clew">
+        <id column="clew_id" property="clewId" />
+        <result column="student_name" property="studentName" />
+        <result column="parent_phone" property="parentPhone" />
+        <result column="remark" property="remark" />
+        <result column="create_time" property="createTime" />
+        <result column="follow_up_num" property="followUpNum" />
+        <result column="edit_time" property="editTime" />
+    </resultMap>
+
+</mapper>
