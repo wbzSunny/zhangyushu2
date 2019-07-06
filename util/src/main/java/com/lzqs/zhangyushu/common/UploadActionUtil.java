@@ -1,5 +1,6 @@
 package com.lzqs.zhangyushu.common;
 
+import common.ConfigBeanProp;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
