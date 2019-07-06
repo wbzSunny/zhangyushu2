@@ -44,7 +44,7 @@ public class SampleReels extends Model<SampleReels> {
     /**
      * 作品集封面id
      */
-    private String sampleReelsCover;
+    private Long sampleReelsCover;
 
     /**
      * 作品集描述
@@ -109,11 +109,11 @@ public class SampleReels extends Model<SampleReels> {
         this.sampleReelsName = sampleReelsName;
     }
 
-    public String getSampleReelsCover() {
+    public Long getSampleReelsCover() {
         return sampleReelsCover;
     }
 
-    public void setSampleReelsCover(String sampleReelsCover) {
+    public void setSampleReelsCover(Long sampleReelsCover) {
         this.sampleReelsCover = sampleReelsCover;
     }
 
