@@ -1,12 +1,11 @@
 package com.lzqs.zhangyushu.impl;
 
-import com.lzqs.zhangyushu.common.UploadActionUtil;
-import com.lzqs.zhangyushu.entity.CommonFile;
-import com.lzqs.zhangyushu.dao.CommonFileMapper;
-import com.lzqs.zhangyushu.safety.JwtUtil;
-import com.lzqs.zhangyushu.service.CommonFileService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import common.ConfigBeanProp;
+import com.lzqs.zhangyushu.common.ConfigBeanProp;
+import com.lzqs.zhangyushu.common.UploadActionUtil;
+import com.lzqs.zhangyushu.dao.CommonFileMapper;
+import com.lzqs.zhangyushu.entity.CommonFile;
+import com.lzqs.zhangyushu.service.CommonFileService;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;

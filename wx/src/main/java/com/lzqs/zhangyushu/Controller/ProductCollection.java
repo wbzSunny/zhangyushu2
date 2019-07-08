@@ -2,28 +2,24 @@ package com.lzqs.zhangyushu.Controller;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.lzqs.zhangyushu.dao.CommonFileMapper;
+import com.lzqs.zhangyushu.common.ResultInfo;
 import com.lzqs.zhangyushu.dao.SampleReelsMapper;
 import com.lzqs.zhangyushu.entity.*;
 import com.lzqs.zhangyushu.service.*;
-import common.ResultInfo;
-import org.apache.velocity.runtime.directive.Break;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.text.DateFormat;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/productCollection")
+@RequestMapping("productCollection")
 public class ProductCollection {
     @Resource
     SampleReelsService sampleReelsService;
@@ -42,7 +38,7 @@ public class ProductCollection {
     @Resource
     ClewService clewService;
 
-    @PostMapping("/listProductCollection")
+    @PostMapping("listProductCollection")
     @ResponseBody
     public ResultInfo listProductCollection(@RequestBody Map<String, Object> map, HttpServletRequest request, HttpServletResponse response) {
 

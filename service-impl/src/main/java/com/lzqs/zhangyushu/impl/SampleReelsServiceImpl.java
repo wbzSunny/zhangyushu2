@@ -1,12 +1,12 @@
 package com.lzqs.zhangyushu.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.lzqs.zhangyushu.common.ConfigBeanProp;
 import com.lzqs.zhangyushu.dao.*;
 import com.lzqs.zhangyushu.entity.*;
 import com.lzqs.zhangyushu.service.CommonFileService;
 import com.lzqs.zhangyushu.service.SampleReelsService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import common.ConfigBeanProp;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

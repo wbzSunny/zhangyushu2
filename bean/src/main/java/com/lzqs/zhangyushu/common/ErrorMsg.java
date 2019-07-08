@@ -1,4 +1,4 @@
-package common;
+package com.lzqs.zhangyushu.common;
 
 import org.springframework.stereotype.Component;
 

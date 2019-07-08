@@ -2,6 +2,7 @@ package com.lzqs.zhangyushu.service;
 
 import com.lzqs.zhangyushu.entity.SampleReels;
 import com.baomidou.mybatisplus.extension.service.IService;
+import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -15,6 +16,8 @@ import java.util.Map;
  * @author ${author}
  * @since 2019-07-06
  */
+
+@Service
 public interface SampleReelsService extends IService<SampleReels> {
 
 

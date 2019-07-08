@@ -1,4 +1,4 @@
-package common;
+package com.lzqs.zhangyushu.common;
 
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 

@@ -1,8 +1,8 @@
 package com.lzqs.zhangyushu.Controller;
 
 
+import com.lzqs.zhangyushu.common.ResultInfo;
 import com.lzqs.zhangyushu.service.SampleReelsService;
-import common.ResultInfo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

@@ -1,4 +1,4 @@
-package common;
+package com.lzqs.zhangyushu.common;
 
 /**
  * @author jinzhicheng
