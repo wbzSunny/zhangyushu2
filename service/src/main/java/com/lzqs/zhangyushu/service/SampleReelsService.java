@@ -26,4 +26,6 @@ public interface SampleReelsService extends IService<SampleReels> {
 
     //根据作品id查看作品详情
     Map<String,Object>  getProduction(Long productionId);
+
+    SampleReels saveSample(HttpServletRequest request, Long userId, Integer status, String sampleReelsName, String description);
 }

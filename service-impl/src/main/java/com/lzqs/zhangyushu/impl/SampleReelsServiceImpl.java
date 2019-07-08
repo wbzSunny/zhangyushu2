@@ -49,6 +49,8 @@ public class SampleReelsServiceImpl extends ServiceImpl<SampleReelsMapper, Sampl
 
     @Resource
     private UserMapper userMapper;
+    @Resource
+    CommonFileService commonFileService;
 
     /**
      * 根据用户id查看他的绘馆
@@ -161,5 +163,28 @@ public class SampleReelsServiceImpl extends ServiceImpl<SampleReelsMapper, Sampl
             }
         }
         return map;
+    }
+
+    public SampleReels saveSample(HttpServletRequest request, Long userId, Integer status, String sampleReelsName, String description) {
+
+        List<CommonFile> commonFiles = commonFileService.uploadFile(request);
+        if (commonFiles.isEmpty()){
+            return null;
+        }
+        CommonFile commonFile = commonFiles.get(0);
+        SampleReels sampleReels = new SampleReels();
+        sampleReels.setUserId(userId);
+        sampleReels.setUserName(userMapper.selectById(userId).getUserName());
+        sampleReels.setSampleReelsName(sampleReelsName);
+        sampleReels.setSampleReelsCover(commonFile.getId());
+        sampleReels.setSamoleReelsDesc(description);
+        sampleReels.setCommentNum(0);
+        sampleReels.setLikeNum(0);
+        sampleReels.setViewNum(Long.valueOf(0));
+        sampleReels.setCreateTime(LocalDateTime.now());
+        sampleReels.setStatus(status);
+
+        sampleReelsMapper.insert(sampleReels);
+        return sampleReels;
     }
 }

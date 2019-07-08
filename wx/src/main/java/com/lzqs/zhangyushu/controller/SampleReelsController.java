@@ -1,4 +1,4 @@
-package com.lzqs.zhangyushu.controller;
+package com.lzqs.zhangyushu.Controller;
 
 
 import com.lzqs.zhangyushu.service.SampleReelsService;
