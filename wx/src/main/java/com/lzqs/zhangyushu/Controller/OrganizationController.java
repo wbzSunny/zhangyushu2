@@ -65,8 +65,7 @@ public class OrganizationController {
     @ResponseBody
     public ResultInfo organizationRegistrationIndex(@RequestBody Map<String, Object> map, HttpServletRequest request){
 
-//        String checkToken = action.checkToken(request);
-        String checkToken =null;
+        String checkToken = action.checkToken(request);
         if (checkToken==null){
             Long organizationId = Long.valueOf(map.get("organizationId").toString());
             List<Clew> clews = clewService.list(new QueryWrapper<Clew>().eq("organization_id", organizationId));
@@ -79,11 +78,7 @@ public class OrganizationController {
                 studentDetail.put("最后跟进时间", clew.getEditTime().format(formatter));
                 List list = clewsMap.containsKey(time.toString())? clewsMap.get(time.toString()) : new ArrayList();
                 studentDetail.put("numb", list.size()+1);
-//                int size= list.size();
-//                list.add(size+1);
-//                list.add(list.size());
                 list.add(studentDetail);
-//                number.add(list.size());
 
                 clewsMap.put(time.toString(), list);
             }
@@ -100,14 +95,14 @@ public class OrganizationController {
         if (checkToken==null){
             Long clewId = Long.valueOf(map.get("clewId").toString());
             Clew clew = clewService.getById(clewId);
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy年MM月dd HH:mm:ss");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy年MM月dd日HH:mm:ss");
             Map<String, Object> clewDetail = new HashMap<>();
             clewDetail.put("学生名称", clew.getStudentName());
             clewDetail.put("线索产生时间", clew.getCreateTime().format(formatter));
             clewDetail.put("备注信息", clew.getRemark());
-            clewDetail.put("备注信息", clew.getParentPhone());
-            clewDetail.put("备注信息", clew.getFollowUpNum());
-            clewDetail.put("最后跟进时间", clew.getEditTime());
+            clewDetail.put("家长电话", clew.getParentPhone());
+            clewDetail.put("跟进次数", clew.getFollowUpNum());
+            clewDetail.put("最后跟进时间", clew.getEditTime().format(formatter));
             return  ResultInfo.success().add(clewDetail);
         }
         return ResultInfo.failWithMsg(checkToken);
