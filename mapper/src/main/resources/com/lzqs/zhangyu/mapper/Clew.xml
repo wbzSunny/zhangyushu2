@@ -11,6 +11,8 @@
         <result column="create_time" property="createTime" />
         <result column="follow_up_num" property="followUpNum" />
         <result column="edit_time" property="editTime" />
+        <result column="view_num" property="viewNum" />
+        <result column="organization_id" property="organizationId" />
     </resultMap>
 
 </mapper>

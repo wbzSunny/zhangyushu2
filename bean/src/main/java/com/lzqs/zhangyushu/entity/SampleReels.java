@@ -13,7 +13,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author ${author}
- * @since 2019-07-06
+ * @since 2019-07-09
  */
 @TableName("sample_reels")
 public class SampleReels extends Model<SampleReels> {
@@ -75,6 +75,16 @@ public class SampleReels extends Model<SampleReels> {
      * 查看数
      */
     private Long viewNum;
+
+    /**
+     * 机构id
+     */
+    private Long organizationId;
+
+    /**
+     * 学员姓名
+     */
+    private String studentName;
 
 
     public Long getSampleReelsId() {
@@ -165,6 +175,22 @@ public class SampleReels extends Model<SampleReels> {
         this.viewNum = viewNum;
     }
 
+    public Long getOrganizationId() {
+        return organizationId;
+    }
+
+    public void setOrganizationId(Long organizationId) {
+        this.organizationId = organizationId;
+    }
+
+    public String getStudentName() {
+        return studentName;
+    }
+
+    public void setStudentName(String studentName) {
+        this.studentName = studentName;
+    }
+
     @Override
     protected Serializable pkVal() {
         return this.sampleReelsId;
@@ -184,6 +210,8 @@ public class SampleReels extends Model<SampleReels> {
         ", likeNum=" + likeNum +
         ", commentNum=" + commentNum +
         ", viewNum=" + viewNum +
+        ", organizationId=" + organizationId +
+        ", studentName=" + studentName +
         "}";
     }
 }
