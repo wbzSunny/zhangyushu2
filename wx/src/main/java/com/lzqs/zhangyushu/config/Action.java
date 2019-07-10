@@ -11,7 +11,7 @@ public class Action {
 
         try {
             String token = request.getHeader("token");
-            if (token == null){
+            if (token.trim().isEmpty()|| token== null){
                 return "token 不能为空";
             }
             String userId = JwtUtil.getUserId(token);
@@ -24,3 +24,5 @@ public class Action {
         return null;
     }
 }
+
+//token.trim().isEmpty()||

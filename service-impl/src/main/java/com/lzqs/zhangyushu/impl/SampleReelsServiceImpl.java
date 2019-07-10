@@ -191,4 +191,43 @@ public class SampleReelsServiceImpl extends ServiceImpl<SampleReelsMapper, Sampl
         sampleReelsMapper.insert(sampleReels);
         return sampleReels;
     }
+
+    @Override
+    public List getGallery(Long organizationId) {
+        List<SampleReels> sampleReelsList = sampleReelsMapper.selectList(new QueryWrapper<SampleReels>().eq("organization_id", organizationId));
+        List gallery= new ArrayList<>();
+        for (SampleReels sampleReels : sampleReelsList){
+            gallery.add(commonFileMapper.selectById(sampleReels.getSampleReelsCover()).getFilePath());
+        }
+        return gallery;
+    }
+
+    public Map<String,Object> getNumber(Long organizationId) {
+        List<SampleReels> sampleReels = sampleReelsMapper.selectList(new QueryWrapper<SampleReels>().eq("organization_id", organizationId));
+        long viewNumber = 0, likeNumber=0, forwardingNumber=0, commentNumber=0;
+        for (SampleReels sampleReels1 : sampleReels){
+            viewNumber += sampleReels1.getViewNum();
+            likeNumber += sampleReels1.getLikeNum();
+            forwardingNumber += sampleReels1.getForwardingNumb();
+            commentNumber += sampleReels1.getCommentNum();
+        }
+        Map<String,Object> infMap = new HashMap<>();
+        infMap.put("view", viewNumber);
+        infMap.put("like", likeNumber);
+        infMap.put("forward", forwardingNumber);
+        infMap.put("comment", commentNumber);
+        infMap.put("size", sampleReels.size());
+
+        return infMap;
+    }
+
+    public void setView(Long sampleReelsId) {
+        synchronized (sampleReelsId){
+            SampleReels sampleReels = sampleReelsMapper.selectById(sampleReelsId);
+            long viewNumber = sampleReels.getViewNum();
+            sampleReels.setViewNum(viewNumber+1);
+            sampleReelsMapper.updateById(sampleReels);
+        }
+    }
+
 }

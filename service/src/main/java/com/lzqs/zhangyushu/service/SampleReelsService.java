@@ -31,4 +31,11 @@ public interface SampleReelsService extends IService<SampleReels> {
     Map<String,Object>  getProduction(Long productionId);
 
     SampleReels saveSample(HttpServletRequest request, Long userId, String studentName, Integer status, String sampleReelsName, String description);
+
+    List getGallery(Long organizationId);
+
+    Map<String, Object> getNumber(Long organizationId);
+
+    void setView(Long sampleReelsId);
+
 }

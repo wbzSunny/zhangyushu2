@@ -3,6 +3,8 @@ package com.lzqs.zhangyushu.service;
 import com.lzqs.zhangyushu.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+
 /**
  * <p>
  * 用户表 服务类
@@ -13,4 +15,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface UserService extends IService<User> {
 
+    List<User> getList(Long organizationId, int status);
 }

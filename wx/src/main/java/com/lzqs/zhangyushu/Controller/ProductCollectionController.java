@@ -116,6 +116,8 @@ public class ProductCollectionController {
                 collections.put(time.toString(), list);
             }
             allInfo.put("所有作品",collections);
+
+            sampleReelsService.setView(collectionId);
             return ResultInfo.success().add(allInfo);
         }
         return ResultInfo.failWithMsg(checkToken);
