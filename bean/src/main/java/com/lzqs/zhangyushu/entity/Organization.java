@@ -13,7 +13,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author ${author}
- * @since 2019-07-06
+ * @since 2019-07-11
  */
 @TableName("organization")
 public class Organization extends Model<Organization> {
@@ -32,9 +32,9 @@ public class Organization extends Model<Organization> {
     private String organizationName;
 
     /**
-     * 机构logo
+     * 机构logo_id
      */
-    private String organizationLogo;
+    private Long organizationLogo;
 
     /**
      * 联系人id
@@ -68,17 +68,9 @@ public class Organization extends Model<Organization> {
 
     /**
      * 联系人
-     * @return
      */
     private String linkMan;
 
-    public String getLinkMan() {
-        return linkMan;
-    }
-
-    public void setLinkMan(String linkMan) {
-        this.linkMan = linkMan;
-    }
 
     public Long getOrganizationId() {
         return organizationId;
@@ -96,11 +88,11 @@ public class Organization extends Model<Organization> {
         this.organizationName = organizationName;
     }
 
-    public String getOrganizationLogo() {
+    public Long getOrganizationLogo() {
         return organizationLogo;
     }
 
-    public void setOrganizationLogo(String organizationLogo) {
+    public void setOrganizationLogo(Long organizationLogo) {
         this.organizationLogo = organizationLogo;
     }
 
@@ -152,6 +144,14 @@ public class Organization extends Model<Organization> {
         this.editTime = editTime;
     }
 
+    public String getLinkMan() {
+        return linkMan;
+    }
+
+    public void setLinkMan(String linkMan) {
+        this.linkMan = linkMan;
+    }
+
     @Override
     protected Serializable pkVal() {
         return this.organizationId;
@@ -169,6 +169,7 @@ public class Organization extends Model<Organization> {
         ", status=" + status +
         ", creatTime=" + creatTime +
         ", editTime=" + editTime +
+        ", linkMan=" + linkMan +
         "}";
     }
 }

@@ -13,7 +13,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author ${author}
- * @since 2019-07-06
+ * @since 2019-07-11
  */
 @TableName("sample_reels")
 public class SampleReels extends Model<SampleReels> {
@@ -77,32 +77,25 @@ public class SampleReels extends Model<SampleReels> {
     private Long viewNum;
 
     /**
-     * 作品集类型 1 系统作品集  2 用户作品集
-     * @return
-     */
-    private  Integer sampleType;
-
-    /**
-     * 商户id
-     * @return
+     * 机构id
      */
     private Long organizationId;
 
-    public Long getOrganizationId() {
-        return organizationId;
-    }
+    /**
+     * 学员姓名
+     */
+    private String studentName;
 
-    public void setOrganizationId(Long organizationId) {
-        this.organizationId = organizationId;
-    }
+    /**
+     * 转发数
+     */
+    private Long forwardingNumb;
 
-    public Integer getSampleType() {
-        return sampleType;
-    }
+    /**
+     * 1 用户作品  2 系统作品
+     */
+    private Integer sampleType;
 
-    public void setSampleType(Integer sampleType) {
-        this.sampleType = sampleType;
-    }
 
     public Long getSampleReelsId() {
         return sampleReelsId;
@@ -192,6 +185,38 @@ public class SampleReels extends Model<SampleReels> {
         this.viewNum = viewNum;
     }
 
+    public Long getOrganizationId() {
+        return organizationId;
+    }
+
+    public void setOrganizationId(Long organizationId) {
+        this.organizationId = organizationId;
+    }
+
+    public String getStudentName() {
+        return studentName;
+    }
+
+    public void setStudentName(String studentName) {
+        this.studentName = studentName;
+    }
+
+    public Long getForwardingNumb() {
+        return forwardingNumb;
+    }
+
+    public void setForwardingNumb(Long forwardingNumb) {
+        this.forwardingNumb = forwardingNumb;
+    }
+
+    public Integer getSampleType() {
+        return sampleType;
+    }
+
+    public void setSampleType(Integer sampleType) {
+        this.sampleType = sampleType;
+    }
+
     @Override
     protected Serializable pkVal() {
         return this.sampleReelsId;
@@ -211,6 +236,10 @@ public class SampleReels extends Model<SampleReels> {
         ", likeNum=" + likeNum +
         ", commentNum=" + commentNum +
         ", viewNum=" + viewNum +
+        ", organizationId=" + organizationId +
+        ", studentName=" + studentName +
+        ", forwardingNumb=" + forwardingNumb +
+        ", sampleType=" + sampleType +
         "}";
     }
 }

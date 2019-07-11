@@ -127,4 +127,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         }
 
     }
+    @Override
+    public List<User> getList(Long organizationId, int status) {
+        List<User> studentList = userMapper.selectList(new QueryWrapper<User>().eq("binding_id", organizationId).eq("status", status));
+        return studentList;
+    }
 }

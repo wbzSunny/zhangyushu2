@@ -1,5 +1,6 @@
 package com.lzqs.zhangyushu.service;
 
+import com.lzqs.zhangyushu.common.ResultInfo;
 import com.lzqs.zhangyushu.entity.SampleReels;
 import com.baomidou.mybatisplus.extension.service.IService;
 import org.springframework.stereotype.Service;
@@ -37,5 +38,12 @@ public interface SampleReelsService extends IService<SampleReels> {
     Map<String, Object> getNumber(Long organizationId);
 
     void setView(Long sampleReelsId); //djdjsds
+
+    ResultInfo listSampleReelsByParam(String userID);
+
+    // 点赞
+    ResultInfo like(Long sampleReelsId);
+    // 创建评论
+    ResultInfo sampleReelsId(Long userId, String content, Long sampleReelsId);
 
 }

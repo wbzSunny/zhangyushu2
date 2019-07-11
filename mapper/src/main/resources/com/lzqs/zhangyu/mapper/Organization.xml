@@ -13,6 +13,7 @@
         <result column="status" property="status" />
         <result column="creat_time" property="creatTime" />
         <result column="edit_time" property="editTime" />
+        <result column="link_man" property="linkMan" />
     </resultMap>
 
 </mapper>

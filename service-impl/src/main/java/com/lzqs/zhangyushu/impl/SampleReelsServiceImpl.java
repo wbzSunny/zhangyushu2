@@ -3,6 +3,7 @@ package com.lzqs.zhangyushu.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lzqs.zhangyushu.common.ConfigBeanProp;
+import com.lzqs.zhangyushu.common.ResultInfo;
 import com.lzqs.zhangyushu.dao.*;
 import com.lzqs.zhangyushu.entity.*;
 import com.lzqs.zhangyushu.service.CommonFileService;
@@ -229,6 +230,80 @@ public class SampleReelsServiceImpl extends ServiceImpl<SampleReelsMapper, Sampl
             sampleReels.setViewNum(viewNumber+1);
             sampleReelsMapper.updateById(sampleReels);
         }
+    }
+
+    @Override
+    public ResultInfo listSampleReelsByParam(String userID) {
+        User user = userMapper.selectById(Long.valueOf(userID));
+        List<Map<String ,Object>> mapList = new ArrayList<>();
+        if (user.getBindingId() == null){
+            QueryWrapper<SampleReels> sampleReelsQueryWrapper = new QueryWrapper<>();
+            sampleReelsQueryWrapper.eq("sample_type", 2).eq("status", 1);
+            List<SampleReels> sampleReelsList = sampleReelsMapper.selectList(sampleReelsQueryWrapper);
+            if (!sampleReelsList.isEmpty()) {
+                for (SampleReels sampleReels :sampleReelsList){
+                    //填写 需求参数参数
+                    getSampleReelsMap(mapList, sampleReels);
+                }
+            }
+        }else {
+            List<SampleReels> sampleReelsList = sampleReelsMapper.selectList(new QueryWrapper<SampleReels>()
+                    .eq("organization_id",user.getBindingId()));
+            if (!sampleReelsList.isEmpty()) {
+                for (SampleReels sampleReels :sampleReelsList){
+                    //填写 需求参数参数
+                    System.out.println("-3-3-3-3-3-3-3--w-w-w-w-w-w-w--w");
+                    getSampleReelsMap(mapList, sampleReels);
+                }
+            }
+
+        }
+        return ResultInfo.success().add(mapList);
+    }
+
+    //填写 需求参数参数
+    private void getSampleReelsMap(List<Map<String, Object>> mapList, SampleReels sampleReels) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("sampleReelsId", sampleReels.getSampleReelsId());
+        map.put("sampleReelsName", sampleReels.getSampleReelsName());
+        map.put("samoleReelsDesc", sampleReels.getSamoleReelsDesc());
+        map.put("likeNum", sampleReels.getLikeNum());
+        map.put("commentNum", sampleReels.getCommentNum());
+        map.put("sampleReelsCover", configBeanProp.getFile_url() + commonFileMapper.selectById(sampleReels.getSampleReelsCover()).getFilePath());
+        map.put("createTime", sampleReels.getCreateTime());
+        mapList.add(map);
+    }
+
+    @Override
+    public ResultInfo like(Long sampleReelsId) {
+        SampleReels sampleReels = sampleReelsMapper.selectById(sampleReelsId);
+        sampleReels.setLikeNum(sampleReels.getLikeNum()+1);
+        sampleReelsMapper.updateById(sampleReels);
+        return ResultInfo.success();
+    }
+
+    /**
+     * 评论
+     * @param userId
+     * @param content
+     * @param sampleReelsId
+     * @return
+     */
+    @Override
+    public ResultInfo sampleReelsId(Long userId, String content, Long sampleReelsId) {
+        SampleReels sampleReels = sampleReelsMapper.selectById(sampleReelsId);
+        sampleReels.setCommentNum(sampleReels.getCommentNum()+1);
+        sampleReelsMapper.updateById(sampleReels);
+        Comment comment  = new Comment();
+        comment.setStatus(2l);
+        comment.setUserId(userId);
+
+        comment.setCreatTime(LocalDateTime.now());
+        comment.setBeCommentId(sampleReelsId);
+        comment.setCommentContent(content);
+        commentMapper.insert(comment);
+
+        return ResultInfo.success();
     }
 
 }

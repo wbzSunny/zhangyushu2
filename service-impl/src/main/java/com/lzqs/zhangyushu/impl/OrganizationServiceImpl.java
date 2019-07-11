@@ -52,7 +52,7 @@ public class OrganizationServiceImpl extends ServiceImpl<OrganizationMapper, Org
         Organization organization = new Organization();
         organization.setCreatTime(LocalDateTime.now());
         organization.setOrganizationDesc(organizationdesc);
-        organization.setOrganizationLogo(commonFile.getId().toString());
+        organization.setOrganizationLogo(commonFile.getId());
         organization.setOrganizationName(organizationName);
         organization.setUserPhone(mobile);
         organization.setUserId(Long.valueOf(userId));

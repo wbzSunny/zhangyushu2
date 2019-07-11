@@ -24,4 +24,14 @@
       <module name="zhangyushu2" target="1.8" />
     </bytecodeTargetLevel>
   </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="bean" options="" />
+      <module name="mapper" options="" />
+      <module name="service" options="" />
+      <module name="service-impl" options="" />
+      <module name="util" options="" />
+      <module name="wx" options="" />
+    </option>
+  </component>
 </project>
