@@ -7,6 +7,7 @@ import com.lzqs.zhangyushu.entity.Clew;
 import com.lzqs.zhangyushu.entity.Organization;
 import com.lzqs.zhangyushu.entity.SampleReels;
 import com.lzqs.zhangyushu.entity.User;
+import com.lzqs.zhangyushu.safety.JwtUtil;
 import com.lzqs.zhangyushu.service.*;
 import org.apache.velocity.runtime.directive.Foreach;
 import org.springframework.stereotype.Controller;
@@ -39,6 +40,33 @@ public class OrganizationController {
     Action action;
     @Resource
     SampleReelsService sampleReelsService;
+
+    /**
+     * 创建机构
+     * @param request
+     * @param map
+     * @return
+     */
+    @PostMapping("/addOrganization")
+    public ResultInfo addOrganization(HttpServletRequest request, @RequestBody Map<String, Object> map){
+        String token = request.getHeader("token");
+        if (token == null){
+            return ResultInfo.failWithMsg("token 空");
+        }
+        String userId  = JwtUtil.getUserId(token);
+        if ( userId == null){
+            return  ResultInfo.failWithMsg("token 错误");
+        }
+
+        String organizationName = ParamTransformationUtils.transformToString(map.get("organizationName"));
+        String linkMan = ParamTransformationUtils.transformToString(map.get("linkMan"));
+        String mobile = ParamTransformationUtils.transformToString(map.get("mobile"));
+        String organizationdesc = ParamTransformationUtils.transformToString(map.get("organizationdesc"));
+        if ( ParamCheckUtils.paramIsNull(linkMan,organizationdesc,organizationName,mobile)){
+            return ResultInfo.failWithMsg("参数不正确");
+        }
+        return organizationService.addOrganization(request,userId,linkMan,mobile,organizationName,organizationdesc);
+    }
 
     @PostMapping("/organizationDetail")
     @ResponseBody
