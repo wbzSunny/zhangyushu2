@@ -66,6 +66,19 @@ public class Organization extends Model<Organization> {
      */
     private LocalDateTime editTime;
 
+    /**
+     * 联系人
+     * @return
+     */
+    private String linkMan;
+
+    public String getLinkMan() {
+        return linkMan;
+    }
+
+    public void setLinkMan(String linkMan) {
+        this.linkMan = linkMan;
+    }
 
     public Long getOrganizationId() {
         return organizationId;

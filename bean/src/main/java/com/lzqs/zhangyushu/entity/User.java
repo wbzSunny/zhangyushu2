@@ -1,5 +1,6 @@
 package com.lzqs.zhangyushu.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
@@ -70,7 +71,16 @@ public class User extends Model<User> {
      * 编辑时间
      */
     private LocalDateTime editTime;
+    @TableField(exist = false)
+    private String token;
 
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
 
     public Long getUserId() {
         return userId;

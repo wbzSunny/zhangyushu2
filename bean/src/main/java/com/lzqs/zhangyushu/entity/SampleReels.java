@@ -76,6 +76,33 @@ public class SampleReels extends Model<SampleReels> {
      */
     private Long viewNum;
 
+    /**
+     * 作品集类型 1 系统作品集  2 用户作品集
+     * @return
+     */
+    private  Integer sampleType;
+
+    /**
+     * 商户id
+     * @return
+     */
+    private Long organizationId;
+
+    public Long getOrganizationId() {
+        return organizationId;
+    }
+
+    public void setOrganizationId(Long organizationId) {
+        this.organizationId = organizationId;
+    }
+
+    public Integer getSampleType() {
+        return sampleType;
+    }
+
+    public void setSampleType(Integer sampleType) {
+        this.sampleType = sampleType;
+    }
 
     public Long getSampleReelsId() {
         return sampleReelsId;

@@ -32,7 +32,7 @@ public class JwtUtil {
      *
      * @return
      */
-    public static String sign(String mobile, String userId) {
+    public static String sign( String userId) {
         // 过期时间
         Date date = new Date(System.currentTimeMillis() + EXPIRE_TIME);
         // 私钥及加密算法
@@ -44,7 +44,6 @@ public class JwtUtil {
         // 附带用户信息，生成签名
         return JWT.create()
                 .withHeader(header)  // header
-                .withClaim("mobile", mobile) // payload
                 .withClaim("userId", userId)
                 .withClaim("suijishu", System.currentTimeMillis())
 //                .withExpiresAt(date)  // 设置过期时间，过期时间要大于签发时间
@@ -120,7 +119,7 @@ public class JwtUtil {
 
     public static void main(String[] args) {
 
-        String sign = sign("18801417651", "4d5d8a902fea41dbb567b21efc65da13");
+//        String sign = sign("18801417651", "4d5d8a902fea41dbb567b21efc65da13");
 
 //        String sign = sign("18801417651", "4d5d8a902fea41dbb567b21efc65da13");
 
