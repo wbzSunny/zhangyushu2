@@ -209,7 +209,7 @@ public class CodeGeneration {
 //        String[] models = {"bean", "mapper", "service", "service-impl"};
         String[] models = {"bean","mapper"};
 
-        String[] tableNames = {"common_file"};
+        String[] tableNames = {"organization"};
 
 //        String[] tableNames = DatabaseUtil.getTableNames();
 
