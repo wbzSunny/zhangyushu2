@@ -36,6 +36,6 @@ public interface SampleReelsService extends IService<SampleReels> {
 
     Map<String, Object> getNumber(Long organizationId);
 
-    void setView(Long sampleReelsId);
+    void setView(Long sampleReelsId); //djdjsds
 
 }
