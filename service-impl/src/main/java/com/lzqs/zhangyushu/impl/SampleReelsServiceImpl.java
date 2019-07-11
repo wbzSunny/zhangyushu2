@@ -3,7 +3,6 @@ package com.lzqs.zhangyushu.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lzqs.zhangyushu.common.ConfigBeanProp;
-import com.lzqs.zhangyushu.common.ResultInfo;
 import com.lzqs.zhangyushu.dao.*;
 import com.lzqs.zhangyushu.entity.*;
 import com.lzqs.zhangyushu.service.CommonFileService;
@@ -52,6 +51,8 @@ public class SampleReelsServiceImpl extends ServiceImpl<SampleReelsMapper, Sampl
     private UserMapper userMapper;
     @Resource
     CommonFileService commonFileService;
+    @Resource
+    OrganizationMapper organizationMapper;
 
     /**
      * 根据用户id查看他的绘馆
@@ -67,7 +68,15 @@ public class SampleReelsServiceImpl extends ServiceImpl<SampleReelsMapper, Sampl
         List<Map<String, Object>> mapList = new ArrayList<>();
         if (!sampleReelsList.isEmpty()) {
             sampleReelsList.forEach(sampleReels -> {
-                getSampleReelsMap(mapList, sampleReels);
+                Map<String, Object> map = new HashMap<>();
+                map.put("sampleReelsId", sampleReels.getSampleReelsId());
+                map.put("sampleReelsName", sampleReels.getSampleReelsName());
+                map.put("samoleReelsDesc", sampleReels.getSamoleReelsDesc());
+                map.put("likeNum", sampleReels.getLikeNum());
+                map.put("commentNum", sampleReels.getCommentNum());
+                map.put("sampleReelsCover", configBeanProp.getFile_url() + commonFileMapper.selectById(sampleReels.getSampleReelsCover()).getFilePath());
+                map.put("createTime", sampleReels.getCreateTime());
+                mapList.add(map);
             });
         }
         return mapList;
@@ -158,7 +167,7 @@ public class SampleReelsServiceImpl extends ServiceImpl<SampleReelsMapper, Sampl
         return map;
     }
 
-    public SampleReels saveSample(HttpServletRequest request, Long userId, Integer status, String sampleReelsName, String description) {
+    public SampleReels saveSample(HttpServletRequest request, Long userId, String studentName, Integer status, String sampleReelsName, String description) {
 
         List<CommonFile> commonFiles = commonFileService.uploadFile(request);
         if (commonFiles.isEmpty()){
@@ -171,6 +180,8 @@ public class SampleReelsServiceImpl extends ServiceImpl<SampleReelsMapper, Sampl
         sampleReels.setSampleReelsName(sampleReelsName);
         sampleReels.setSampleReelsCover(commonFile.getId());
         sampleReels.setSamoleReelsDesc(description);
+        sampleReels.setStudentName(studentName);
+        sampleReels.setOrganizationId(organizationMapper.selectOne(new QueryWrapper<Organization>().eq("user_id", userId)).getOrganizationId());
         sampleReels.setCommentNum(0);
         sampleReels.setLikeNum(0);
         sampleReels.setViewNum(Long.valueOf(0));
@@ -181,89 +192,43 @@ public class SampleReelsServiceImpl extends ServiceImpl<SampleReelsMapper, Sampl
         return sampleReels;
     }
 
-    /**
-     * 点赞
-     * @param sampleReelsId
-     * @return
-     */
     @Override
-    public ResultInfo like(Long sampleReelsId) {
-        SampleReels sampleReels = sampleReelsMapper.selectById(sampleReelsId);
-        sampleReels.setLikeNum(sampleReels.getLikeNum()+1);
-        sampleReelsMapper.updateById(sampleReels);
-        return ResultInfo.success();
-    }
-
-    /**
-     * 评论
-     * @param userId
-     * @param content
-     * @param sampleReelsId
-     * @return
-     */
-    @Override
-    public ResultInfo sampleReelsId(Long userId, String content, Long sampleReelsId) {
-        SampleReels sampleReels = sampleReelsMapper.selectById(sampleReelsId);
-        sampleReels.setCommentNum(sampleReels.getCommentNum()+1);
-        sampleReelsMapper.updateById(sampleReels);
-        Comment comment  = new Comment();
-        comment.setStatus(2l);
-        comment.setUserId(userId);
-
-        comment.setCreatTime(LocalDateTime.now());
-        comment.setBeCommentId(sampleReelsId);
-        comment.setCommentContent(content);
-        commentMapper.insert(comment);
-
-        return ResultInfo.success();
-    }
-
-    /**
-     * 根据参数获取作品集 当前用户没有加入机构展示 系统推荐作品集 加入机构展示机构作品集
-     * @param userID
-     * @return
-     */
-    @Override
-    public ResultInfo listSampleReelsByParam(String userID) {
-        User user = userMapper.selectById(Long.valueOf(userID));
-        List<Map<String ,Object>> mapList = new ArrayList<>();
-        if (user.getBindingId() == null){
-            QueryWrapper<SampleReels> sampleReelsQueryWrapper = new QueryWrapper<>();
-            sampleReelsQueryWrapper.eq("sample_type", 2).eq("status", 1);
-            List<SampleReels> sampleReelsList = sampleReelsMapper.selectList(sampleReelsQueryWrapper);
-            if (!sampleReelsList.isEmpty()) {
-                for (SampleReels sampleReels :sampleReelsList){
-                    //填写 需求参数参数
-                    getSampleReelsMap(mapList, sampleReels);
-                }
-            }
-        }else {
-            List<SampleReels> sampleReelsList = sampleReelsMapper.selectList(new QueryWrapper<SampleReels>()
-                    .eq("organization_id",user.getBindingId()));
-            if (!sampleReelsList.isEmpty()) {
-                for (SampleReels sampleReels :sampleReelsList){
-                    //填写 需求参数参数
-                    System.out.println("-3-3-3-3-3-3-3--w-w-w-w-w-w-w--w");
-                    getSampleReelsMap(mapList, sampleReels);
-                }
-            }
-
+    public List getGallery(Long organizationId) {
+        List<SampleReels> sampleReelsList = sampleReelsMapper.selectList(new QueryWrapper<SampleReels>().eq("organization_id", organizationId));
+        List gallery= new ArrayList<>();
+        for (SampleReels sampleReels : sampleReelsList){
+            gallery.add(commonFileMapper.selectById(sampleReels.getSampleReelsCover()).getFilePath());
         }
-        return ResultInfo.success().add(mapList);
+        return gallery;
     }
 
-    //填写 需求参数参数
-    private void getSampleReelsMap(List<Map<String, Object>> mapList, SampleReels sampleReels) {
-        Map<String, Object> map = new HashMap<>();
-        map.put("sampleReelsId", sampleReels.getSampleReelsId());
-        map.put("sampleReelsName", sampleReels.getSampleReelsName());
-        map.put("samoleReelsDesc", sampleReels.getSamoleReelsDesc());
-        map.put("likeNum", sampleReels.getLikeNum());
-        map.put("commentNum", sampleReels.getCommentNum());
-        map.put("sampleReelsCover", configBeanProp.getFile_url() + commonFileMapper.selectById(sampleReels.getSampleReelsCover()).getFilePath());
-        map.put("createTime", sampleReels.getCreateTime());
-        mapList.add(map);
+    public Map<String,Object> getNumber(Long organizationId) {
+        List<SampleReels> sampleReels = sampleReelsMapper.selectList(new QueryWrapper<SampleReels>().eq("organization_id", organizationId));
+        long viewNumber = 0, likeNumber=0, forwardingNumber=0, commentNumber=0;
+        for (SampleReels sampleReels1 : sampleReels){
+            viewNumber += sampleReels1.getViewNum();
+            likeNumber += sampleReels1.getLikeNum();
+            forwardingNumber += sampleReels1.getForwardingNumb();
+            commentNumber += sampleReels1.getCommentNum();
+        }
+        Map<String,Object> infMap = new HashMap<>();
+        infMap.put("view", viewNumber);
+        infMap.put("like", likeNumber);
+        infMap.put("forward", forwardingNumber);
+        infMap.put("comment", commentNumber);
+        infMap.put("size", sampleReels.size());
+
+        return infMap;
     }
 
+    //dsdsdsdsds
+    public void setView(Long sampleReelsId) {
+        synchronized (sampleReelsId){
+            SampleReels sampleReels = sampleReelsMapper.selectById(sampleReelsId);
+            long viewNumber = sampleReels.getViewNum();
+            sampleReels.setViewNum(viewNumber+1);
+            sampleReelsMapper.updateById(sampleReels);
+        }
+    }
 
 }
