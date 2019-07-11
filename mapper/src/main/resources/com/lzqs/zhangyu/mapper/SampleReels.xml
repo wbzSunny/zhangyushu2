@@ -15,6 +15,8 @@
         <result column="like_num" property="likeNum" />
         <result column="comment_num" property="commentNum" />
         <result column="view_num" property="viewNum" />
+        <result column="organization_id" property="organizationId" />
+        <result column="student_name" property="studentName" />
     </resultMap>
 
 </mapper>

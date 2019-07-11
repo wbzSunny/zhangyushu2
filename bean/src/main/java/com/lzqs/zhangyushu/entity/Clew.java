@@ -13,7 +13,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author ${author}
- * @since 2019-07-06
+ * @since 2019-07-09
  */
 @TableName("clew")
 public class Clew extends Model<Clew> {
@@ -52,6 +52,16 @@ public class Clew extends Model<Clew> {
      * 最后跟进时间
      */
     private LocalDateTime editTime;
+
+    /**
+     * 查看数
+     */
+    private Integer viewNum;
+
+    /**
+     * 机构id
+     */
+    private Integer organizationId;
 
 
     public Long getClewId() {
@@ -110,6 +120,22 @@ public class Clew extends Model<Clew> {
         this.editTime = editTime;
     }
 
+    public Integer getViewNum() {
+        return viewNum;
+    }
+
+    public void setViewNum(Integer viewNum) {
+        this.viewNum = viewNum;
+    }
+
+    public Integer getOrganizationId() {
+        return organizationId;
+    }
+
+    public void setOrganizationId(Integer organizationId) {
+        this.organizationId = organizationId;
+    }
+
     @Override
     protected Serializable pkVal() {
         return this.clewId;
@@ -125,6 +151,8 @@ public class Clew extends Model<Clew> {
         ", createTime=" + createTime +
         ", followUpNum=" + followUpNum +
         ", editTime=" + editTime +
+        ", viewNum=" + viewNum +
+        ", organizationId=" + organizationId +
         "}";
     }
 }
