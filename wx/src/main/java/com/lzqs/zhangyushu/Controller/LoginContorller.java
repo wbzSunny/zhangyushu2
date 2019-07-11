@@ -82,8 +82,6 @@ public class LoginContorller {
             e.printStackTrace();
             return ResultInfo.failWithMsg("系统错误");
         }
-
     }
-
 
 }

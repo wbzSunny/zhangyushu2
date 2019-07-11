@@ -10,8 +10,8 @@ import static com.lzqs.zhangyushu.httpRequest.HttpRequest.httpRequest;
 public class WeChatLogin {
 
 
-    private final static String APP_ID = "wxac2ffac6983152db";
-    private final static String APP_SECRET = "ed3fed1882c7722a6ea74058b9cf087a";
+    private final static String APP_ID = "wxbb3cd9bfcc342034";
+    private final static String APP_SECRET = "26eec0252920b12f740a84dd120aa5ab";
 
     public static WxLoginVo login(String code) {
         WxLoginVo wxLoginVo = new WxLoginVo();

@@ -122,6 +122,18 @@ public class ProductCollectionController {
         }
         return ResultInfo.failWithMsg(checkToken);
     }
+
+    @PostMapping("/setSharing")
+    @ResponseBody
+    public ResultInfo getSharing(@RequestBody Map<String, Object> map, HttpServletRequest request){
+        String checkError = action.checkToken(request);
+        if (checkError==null){
+            Long collectionId = Long.valueOf(map.get("collectionId").toString());
+            sampleReelsService.setShareNumber(collectionId);
+            return ResultInfo.success();
+        }
+        return ResultInfo.failWithMsg(checkError);
+    }
 }
 
 //fdfdfdf

@@ -206,10 +206,10 @@ public class CodeGeneration {
     @Test
     public void test() {
 
-//        String[] models = {"bean", "mapper", "service", "service-impl"};
-        String[] models = {"bean","mapper"};
+        String[] models = {"bean", "mapper", "service", "service-impl"};
+//        String[] models = {"bean","mapper"};
 
-        String[] tableNames = {"organization"};
+        String[] tableNames = {"admin"};
 
 //        String[] tableNames = DatabaseUtil.getTableNames();
 

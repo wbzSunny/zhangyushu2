@@ -46,4 +46,5 @@ public interface SampleReelsService extends IService<SampleReels> {
     // 创建评论
     ResultInfo sampleReelsId(Long userId, String content, Long sampleReelsId);
 
+    void setShareNumber(Long collectionId);
 }

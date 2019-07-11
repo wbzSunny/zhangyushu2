@@ -11,10 +11,11 @@ public class Action {
 
         try {
             String token = request.getHeader("token");
-            if (token == null){
+            if (token.isEmpty() ||token == null){
                 return "token 不能为空";
             }
             String userId = JwtUtil.getUserId(token);
+            System.out.println("========================================================= "+ userId);
             if (userId == null){
                 return "token 错误";
             }

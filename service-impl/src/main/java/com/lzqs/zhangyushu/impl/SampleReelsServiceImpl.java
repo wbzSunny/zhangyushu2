@@ -68,16 +68,8 @@ public class SampleReelsServiceImpl extends ServiceImpl<SampleReelsMapper, Sampl
         List<SampleReels> sampleReelsList = sampleReelsMapper.selectList(sampleReelsQueryWrapper);
         List<Map<String, Object>> mapList = new ArrayList<>();
         if (!sampleReelsList.isEmpty()) {
-            sampleReelsList.forEach(sampleReels -> {
-                Map<String, Object> map = new HashMap<>();
-                map.put("sampleReelsId", sampleReels.getSampleReelsId());
-                map.put("sampleReelsName", sampleReels.getSampleReelsName());
-                map.put("samoleReelsDesc", sampleReels.getSamoleReelsDesc());
-                map.put("likeNum", sampleReels.getLikeNum());
-                map.put("commentNum", sampleReels.getCommentNum());
-                map.put("sampleReelsCover", configBeanProp.getFile_url() + commonFileMapper.selectById(sampleReels.getSampleReelsCover()).getFilePath());
-                map.put("createTime", sampleReels.getCreateTime());
-                mapList.add(map);
+            sampleReelsList.forEach(sampleReels ->{
+                getSampleReelsMap(mapList, sampleReels);
             });
         }
         return mapList;
@@ -274,6 +266,7 @@ public class SampleReelsServiceImpl extends ServiceImpl<SampleReelsMapper, Sampl
         mapList.add(map);
     }
 
+
     @Override
     public ResultInfo like(Long sampleReelsId) {
         SampleReels sampleReels = sampleReelsMapper.selectById(sampleReelsId);
@@ -304,6 +297,15 @@ public class SampleReelsServiceImpl extends ServiceImpl<SampleReelsMapper, Sampl
         commentMapper.insert(comment);
 
         return ResultInfo.success();
+    }
+
+    public void setShareNumber(Long collectionId) {
+        synchronized (collectionId){
+            SampleReels sampleReels= sampleReelsMapper.selectById(collectionId);
+            long oldNumber = sampleReels.getForwardingNumb();
+            sampleReels.setForwardingNumb(oldNumber+1);
+            sampleReelsMapper.updateById(sampleReels);
+        }
     }
 
 }

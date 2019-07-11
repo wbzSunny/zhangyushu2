@@ -3,6 +3,7 @@ package com.lzqs.zhangyushu.safety;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
 
@@ -93,7 +94,15 @@ public class JwtUtil {
      * @return token中包含的用户Id
      */
     public static String getUserId(String token) {
-        DecodedJWT jwt = JWT.decode(token);
+//        DecodedJWT jwt = JWT.decode(token);
+//        return jwt.getClaim("userId").asString();
+        DecodedJWT jwt = null;
+        try {
+            jwt = JWT.decode(token);
+        } catch (JWTDecodeException e) {
+            System.out.println("token错误");
+            return null;
+        }
         return jwt.getClaim("userId").asString();
     }
 
