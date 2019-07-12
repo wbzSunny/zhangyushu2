@@ -2,11 +2,19 @@ package com.lzqs.zhangyushu.config;
 
 import com.lzqs.zhangyushu.safety.JwtUtil;
 import org.springframework.stereotype.Component;
+import sun.misc.BASE64Encoder;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Component
 public class Action {
+    private static final String MD5_key = "MD5";
+
     public String checkToken(HttpServletRequest request){
 
         try {
@@ -23,5 +31,18 @@ public class Action {
             return "系统错误";
         }
         return null;
+    }
+
+    public String encode_Key(String password) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+        MessageDigest md5 = MessageDigest.getInstance(MD5_key);
+        BASE64Encoder base64en = new BASE64Encoder();
+        String result = base64en.encode(md5.digest(password.getBytes("utf-8")));
+        return result;
+    }
+
+    public boolean check_regex(String str, String regEx) {
+        Pattern pattern = Pattern.compile(regEx);
+        Matcher matcher = pattern.matcher(str);
+        return matcher.matches();
     }
 }

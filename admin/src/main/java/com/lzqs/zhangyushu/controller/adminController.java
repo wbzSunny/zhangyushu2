@@ -13,10 +13,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import com.lzqs.zhangyushu.config.Action;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.swing.*;
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.util.Map;
 
 @Controller
@@ -30,14 +33,36 @@ public class adminController {
     ClewService clewService;
     @Resource
     AdminService adminService;
+    @Resource
+    Action action;
 
-    @PostMapping("login")
+    @PostMapping("/login")
     @ResponseBody
-    public ResultInfo login(@RequestBody Map<String, Object> map, HttpServletRequest request){
-//        String account = map.get("account").toString();
-//        String password = map.get("password").toString();
-//        return adminService.login(account, password);
+    public ResultInfo login(@RequestBody Map<String, Object> map, HttpServletRequest request) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+        String account = map.get("account").toString();
+        String password = map.get("password").toString();
+//        if (account.trim().isEmpty()){
+//            return ResultInfo.failWithMsg("账号不能为空");
+//        }
+        if (account.trim().length() <4){
+            return ResultInfo.failWithMsg("账号不能短于4个字");
+        }
+        if (password.trim().isEmpty()){
+            return ResultInfo.failWithMsg("密码不能为空");
+        }
+        return adminService.login(account, action.encode_Key(password));
+    }
+
+    @PostMapping("/addAdmin")
+    @ResponseBody
+    public ResultInfo addAdmin (@RequestBody Map<String, Object> map, HttpServletRequest request){
+        String mobile = map.get("mobile").toString();
+        String name = map.get("name").toString();
+        String password = map.get("password").toString();
+        String description = map.get("description").toString();
+        String account = map.get("account").toString();
         return null;
+
     }
 
 
