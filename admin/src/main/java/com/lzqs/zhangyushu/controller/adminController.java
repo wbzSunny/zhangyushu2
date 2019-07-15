@@ -137,7 +137,6 @@ public class adminController {
             }
             if (operation==EDIT_ADMIN){
                 Long adminId = Long.valueOf(map.get("adminId").toString());
-                System.out.println("======================================="+ account);
                 return adminService.editAdmin(adminId, mobile, action.encode_Key(password), description, account, name);
             }
         }
