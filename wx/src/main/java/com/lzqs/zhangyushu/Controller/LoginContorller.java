@@ -29,14 +29,14 @@ public class LoginContorller {
     @PostMapping("/login")
     public ResultInfo login(@RequestBody Map<String ,Object> map){
         try {
-            String code = ParamTransformationUtils.transformToString(map.get("code"));
-            Long inviteId =ParamTransformationUtils.transformToNonNegativeLong(map.get("inviteId"));
+            String code = map.get("code").toString();
+            Long inviteId =Long.valueOf(map.get("inviteId").toString());
             if (ParamCheckUtils.paramIsNull(code)){
                 return  ResultInfo.failWithMsg("code 不能是空");
             }
             WxLoginVo wxLoginVo = WeChatLogin.login(code);
             if(wxLoginVo.getOpenid() != null){
-                User user = null;
+                User user;
                 if (inviteId != null){
                     //邀请人id 不是空 判断邀请人是不是商户 是商户 将当前登录的 用户 变更用户状态是商户学员
                     user = userService.editUserStatus(wxLoginVo.getOpenid(),inviteId);
@@ -56,8 +56,6 @@ public class LoginContorller {
             e.printStackTrace();
             return ResultInfo.failWithMsg("系统错误");
         }
-
-
     }
     /**
      * 从前端获取 用户信息 更新用户信息

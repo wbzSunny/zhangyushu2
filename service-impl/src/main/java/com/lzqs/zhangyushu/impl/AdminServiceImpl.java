@@ -67,19 +67,16 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
     }
 
     @Override
-    public ResultInfo editAdmin(Long adminId, String mobile, String name, String password, String description, String account) {
+    public ResultInfo editAdmin(Long adminId, String mobile, String password, String description, String account, String name) {
         Admin admin = adminMapper.selectById(adminId);
         admin.setIsDelete(1);
         adminMapper.updateById(admin);
-        System.out.println("======================================="+ account);
         Admin admin2 = adminMapper.selectOne(new QueryWrapper<Admin>().eq("mobile", mobile).ne("is_delete", 1));
         Admin admin1 = adminMapper.selectOne(new QueryWrapper<Admin>().eq("account", account).ne("is_delete", 1));
-        System.out.println("======================================="+ admin1);
-        System.out.println("======================================="+ admin2);
         if (admin2!=null || admin1!=null){
             admin.setIsDelete(0);
             adminMapper.updateById(admin);
-            return ResultInfo.failWithMsg("该账号已经存在");
+            return ResultInfo.failWithMsg("该手机号或账号已经存在");
         }
         admin.setName(name);
         admin.setMobile(mobile);

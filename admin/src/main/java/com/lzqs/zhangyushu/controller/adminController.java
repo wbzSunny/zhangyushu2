@@ -97,8 +97,8 @@ public class adminController {
     @PostMapping("stopAdmin")
     @ResponseBody
     public ResultInfo stopAdmin(@RequestBody Map<String, Object> map, HttpServletRequest request){
-//        String checkAdmin = action.checkAdmin(request);
-        String checkAdmin =null;
+        String checkAdmin = action.checkAdmin(request);
+//        String checkAdmin =null;
         if (checkAdmin==null){
             Long adminId = Long.valueOf(map.get("adminId").toString());
             Admin admin = adminService.getById(adminId);
@@ -109,9 +109,21 @@ public class adminController {
         return ResultInfo.failWithMsg(checkAdmin);
     }
 
+    @PostMapping("listProductCollection")
+    @ResponseBody
+    public ResultInfo listProductCollection(@RequestBody Map<String, Object> map, HttpServletRequest request){
+        String checkAdmin = action.checkAdmin(request);
+        if (checkAdmin==null){
+
+
+        }
+        return ResultInfo.failWithMsg(checkAdmin);
+    }
+
+
     private ResultInfo addOrEditAdmin(Map<String, Object> map, HttpServletRequest request,int operation ) throws UnsupportedEncodingException, NoSuchAlgorithmException {
-//        String checkAdmin = action.checkAdmin(request);
-        String checkAdmin =null;
+        String checkAdmin = action.checkAdmin(request);
+//        String checkAdmin =null;
         if (checkAdmin==null){
             String mobile = map.get("mobile")!=null? map.get("mobile").toString() : "";
             String name = map.get("name") !=null? map.get("name").toString() : "";
@@ -137,7 +149,6 @@ public class adminController {
             }
             if (operation==EDIT_ADMIN){
                 Long adminId = Long.valueOf(map.get("adminId").toString());
-                System.out.println("======================================="+ account);
                 return adminService.editAdmin(adminId, mobile, action.encode_Key(password), description, account, name);
             }
         }

@@ -18,5 +18,5 @@ public interface AdminService extends IService<Admin> {
 
     ResultInfo login(String account, String mobile, String encode_password);
 
-    ResultInfo editAdmin(Long adminId, String mobile, String name, String password, String description, String account);
+    ResultInfo editAdmin(Long adminId, String mobile, String password, String description, String account, String name);
 }
